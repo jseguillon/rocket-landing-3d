@@ -2,6 +2,15 @@
 
 Immersive Three.js animation of a reusable rocket landing with deterministic phases, telemetry, and interactive controls.
 
+## Demo
+
+<video controls width="100%" preload="metadata">
+  <source src="./docs/demo.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+
+Download: [demo.webm](./docs/demo.webm)
+
 Run:
 
 ```bash
@@ -40,4 +49,4 @@ npm run dev
 # open http://localhost:5173/?testMode=1 for deterministic seeking via window.__test.seekTime(t)
 ```
 
-Artifacts are uploaded as GitHub Actions artifacts with retention, not committed.
+The README demo is committed to `docs/demo.webm`. GitHub Actions artifacts remain ephemeral and are uploaded with retention, not committed.
