@@ -9,6 +9,8 @@ export default [
       globals: {
         window: 'readonly',
         document: 'readonly',
+        location: 'readonly',
+        URLSearchParams: 'readonly',
         performance: 'readonly',
         requestAnimationFrame: 'readonly'
       }

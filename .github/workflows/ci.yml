@@ -1,7 +1,7 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  build:
+  code-quality:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -13,3 +13,21 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+
+  visual-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run visual:test
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-artifacts
+          path: test-results/artifacts
+          retention-days: 7

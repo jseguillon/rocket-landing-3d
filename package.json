@@ -11,11 +11,15 @@
     "format": "prettier --write src tests .github README.md",
     "format:check": "prettier --check src tests .github README.md",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "visual:test": "playwright test",
+    "visual:update": "playwright test --update-snapshots"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
+    "@playwright/test": "1.62.1",
     "eslint": "9.39.5",
+    "pngjs": "^7.0.0",
     "prettier": "3.9.6",
     "vite": "5.4.21",
     "vitest": "1.6.1"

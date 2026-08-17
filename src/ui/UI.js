@@ -3,7 +3,7 @@ export class UI {
     this.stateMachine = stateMachine;
     this.rocket = rocket;
     this.paused = false;
-    this.cameraMode = 'orbit';
+    this.cameraMode = 'cinematic';
     this.quality = 'high';
 
     const playPause = document.getElementById('play-pause');
@@ -75,6 +75,8 @@ export class UI {
     document.getElementById('telemetry-vs').textContent = Math.round(t.vSpeed);
     document.getElementById('telemetry-fuel').textContent = Math.round(t.fuel);
     document.getElementById('telemetry-phase').textContent = t.phase;
+    const badge = document.getElementById('phase-badge');
+    if (badge) badge.textContent = t.phase;
     const scrubber = document.getElementById('scrubber');
     const percent = (t.time / t.total) * 100;
     if (!scrubber.dragging) scrubber.value = percent;
