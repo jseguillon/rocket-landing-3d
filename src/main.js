@@ -111,16 +111,43 @@ if (testMode) {
       stateMachine.setTime(t);
       updateAll();
     },
-    acceleratedPlay: (rate = 2) => {
-      const start = stateMachine.time;
-      const end = stateMachine.total;
-      const step = rate;
-      for (let t = start; t <= end; t += step) {
-        stateMachine.setTime(t);
-        updateAll();
-      }
-      stateMachine.setTime(end);
-      updateAll();
+    acceleratedPlay: (realDurationSec = 14) => {
+      return new Promise((resolve) => {
+        const startTime = performance.now();
+        const start = stateMachine.time;
+        const end = stateMachine.total;
+        const holdMs = 800;
+        const rawDurationSec = Number(realDurationSec);
+        const durationMs = Math.max(
+          0,
+          (isFinite(rawDurationSec) ? rawDurationSec : 14) * 1000
+        );
+        const effectiveMs = Math.max(0, durationMs - holdMs);
+        const animate = (now) => {
+          const elapsed = now - startTime;
+          let timelineProgress;
+          if (effectiveMs > 0) {
+            if (elapsed < effectiveMs) {
+              timelineProgress = elapsed / effectiveMs;
+            } else {
+              timelineProgress = 1;
+            }
+          } else {
+            timelineProgress = 1;
+          }
+          const t = start + timelineProgress * (end - start);
+          stateMachine.setTime(t);
+          updateAll();
+          if (elapsed < durationMs) {
+            requestAnimationFrame(animate);
+          } else {
+            stateMachine.setTime(end);
+            updateAll();
+            resolve();
+          }
+        };
+        requestAnimationFrame(animate);
+      });
     },
     getPhase: () => stateMachine.getPhase(),
     getTelemetry: () => ({

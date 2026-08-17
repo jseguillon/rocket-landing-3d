@@ -123,7 +123,13 @@ test.describe('Rocket landing visual CI', () => {
 
   test('record landing demo video', async ({ page }) => {
     const video = page.video();
-    await page.evaluate(() => window.__test.acceleratedPlay(2));
+    const start = Date.now();
+    await page.evaluate(async () => {
+      await window.__test.acceleratedPlay(14);
+    });
+    const elapsed = Date.now() - start;
+    expect(elapsed).toBeGreaterThan(10000);
+    expect(elapsed).toBeLessThan(20000);
     const telemetry = await page.evaluate(() => window.__test.getTelemetry());
     expect(telemetry.phase).toBe('shutdown');
     const phasesSeen = await page.evaluate(() => {
@@ -145,6 +151,6 @@ test.describe('Rocket landing visual CI', () => {
     const data = await fs.readFile(videoPath);
     await fs.writeFile('test-results/artifacts/demo.webm', data);
     const stat = await fs.stat('test-results/artifacts/demo.webm');
-    expect(stat.size).toBeGreaterThan(0);
+    expect(stat.size).toBeGreaterThan(50000);
   });
 });
