@@ -10,11 +10,15 @@
     <div id="app">
       <canvas id="c"></canvas>
       <div id="ui">
+        <div id="mission-bar">
+          <div class="mission-title">Starship Landing Demo</div>
+          <div class="phase-badge" id="phase-badge">orbital</div>
+        </div>
         <div id="telemetry" role="region" aria-label="Telemetry">
-          <div>Altitude: <span id="telemetry-alt">0</span> m</div>
-          <div>VSpeed: <span id="telemetry-vs">0</span> m/s</div>
-          <div>Fuel: <span id="telemetry-fuel">100</span>%</div>
-          <div>Phase: <span id="telemetry-phase">idle</span></div>
+          <div class="row"><span class="label">Altitude</span><span id="telemetry-alt">0</span> m</div>
+          <div class="row"><span class="label">VSpeed</span><span id="telemetry-vs">0</span> m/s</div>
+          <div class="row"><span class="label">Fuel</span><span id="telemetry-fuel">100</span>%</div>
+          <div class="row"><span class="label">Phase</span><span id="telemetry-phase">idle</span></div>
         </div>
         <div id="controls">
           <button id="play-pause" aria-label="Pause">⏸</button>

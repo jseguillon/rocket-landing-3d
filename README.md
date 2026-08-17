@@ -17,3 +17,27 @@ Features:
 - Controls: pause/resume, restart, phase step, timeline scrubber, camera modes (chase/orbit/pad/cinematic), quality selector
 - Keyboard shortcuts: Space to pause, R to reset
 - Reduced-motion support, WebGL fallback, accessible labels
+
+## Visual CI
+
+Visual regression tests with Playwright:
+
+```bash
+npm install
+npm run visual:test
+```
+
+Artifacts are written to `test-results/artifacts/`:
+
+- phase screenshots: orbital, entry, descent, landingBurn, legDeploy, touchdown, shutdown
+- mobile.png smoke
+- video and HTML report under `test-results/artifacts/`
+
+Local usage:
+
+```bash
+npm run dev
+# open http://localhost:5173/?testMode=1 for deterministic seeking via window.__test.seekTime(t)
+```
+
+Artifacts are uploaded as GitHub Actions artifacts with retention, not committed.
